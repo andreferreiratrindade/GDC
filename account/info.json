@@ -1,0 +1,49 @@
+{
+    "info":{
+        "familyType":"contas"
+    },
+    "versions":[
+        {
+            "versao": "2.4.1",
+            "apiUrl": "https://raw.githubusercontent.com/OpenBanking-Brasil//openapi/refs/heads/main/swagger-apis/accounts/2.4.1.yml",
+            "apiDocumentationUrl":"https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/578584577/v2.4.1+-+DC+Contas",
+            "status": [
+                {
+                    "enumStatusApi": 1,
+                    "startDate":"2024-01-02",
+                    "endDate": "2024-02-10"
+                },
+                {
+                    "enumStatusApi": 2,
+                    "startDate":"2024-02-11",
+                    "endDate": "2024-03-12"
+                },
+                {
+                    "enumStatusApi": 3,
+                    "startDate":"2024-03-15",
+                    "endDate": ""
+                }
+            ]
+            
+        },
+        {
+            "versao": "2.0.0",
+            "apiUrl": "https://raw.githubusercontent.com/OpenBanking-Brasil//openapi/refs/heads/main/swagger-apis/accounts/2.0.0.yml",
+            "apiDocumentationUrl":"https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/17372381/v2.0.0+-+Contas",
+
+            "status": [
+                {
+                    "enumStatusApi": 3,
+                    "startDate":"2023-02-22",
+                    "endDate": "2023-09-19"
+                },
+                {
+                    "enumStatusApi": 5,
+                    "startDate":"2023-09-20",
+                    "endDate": "2023-11-02"
+                }
+            ]
+            
+        }
+    ]
+}

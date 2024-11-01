@@ -1,0 +1,36 @@
+{
+    "infoApis": [
+        "https://raw.githubusercontent.com/andreferreiratrindade/GDC/refs/heads/main/swagger-apis/accounts/info.json",
+        "https://raw.githubusercontent.com/andreferreiratrindade/GDC/refs/heads/main/swagger-apis/opendata-accounts/info.json"
+    ],
+    "enumFamilyType":[
+        {"id":1, "value":"consents"},
+        {"id":2, "value":"payments-pix"},
+        {"id":3, "value":"payments-consents"},
+        {"id":4, "value":"payments-recurring-consents"},
+        {"id":5, "value":"opendata-accounts_business-accounts"}
+      
+    ],
+    "enumStatusApi": [
+        {
+            "id": 1,
+            "value": "Implementing"
+        },
+        {
+            "id": 2,
+            "value": "Certifying"
+        },
+        {
+            "id": 3,
+            "value": "Current"
+        },
+        {
+            "id": 4,
+            "value": "Deprecated"
+        },
+        {
+            "id": 5,
+            "value": "Retired"
+        }
+    ]
+}
