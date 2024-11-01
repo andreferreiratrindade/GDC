@@ -1,7 +1,7 @@
 {
     "infoApis": [
-        "https://raw.githubusercontent.com/andreferreiratrindade/GDC/refs/heads/main/swagger-apis/accounts/info.json",
-        "https://raw.githubusercontent.com/andreferreiratrindade/GDC/refs/heads/main/swagger-apis/opendata-accounts/info.json"
+        "https://raw.githubusercontent.com/andreferreiratrindade/GDC/refs/heads/main/account/info.json",
+        "https://raw.githubusercontent.com/andreferreiratrindade/GDC/refs/heads/main/opendata-accounts/info.json"
     ],
     "enumFamilyType":[
         {"id":1, "value":"consents"},
