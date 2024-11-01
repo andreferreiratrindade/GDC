@@ -1,6 +1,7 @@
 {
     "info":{
-        "familyType":"3"
+        "familyType":"3",
+        "apiName": "Contas"
     },
     "versions":[
         {
