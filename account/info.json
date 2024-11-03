@@ -1,6 +1,6 @@
 {
     "info":{
-        "familyType":"3",
+        "enumFamilyType":3,
         "apiName": "Contas"
     },
     "versions":[
@@ -25,7 +25,7 @@
                     "endDate": ""
                 }
             ]
-            
+
         },
         {
             "versao": "2.0.0",
@@ -44,7 +44,7 @@
                     "endDate": "2023-11-02"
                 }
             ]
-            
+
         }
     ]
 }

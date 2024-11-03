@@ -1,5 +1,8 @@
 {
-    "enumFamilyType":5,
+    "info":{
+        "enumFamilyType":5,
+        "apiName": "Open data Accounts"
+    },
     "versions":[
         {
 

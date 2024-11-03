@@ -1,0 +1,107 @@
+<html lang="en">
+
+<head>
+    <!-- Includes all JS & CSS for the JavaScript Data Grid -->
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+</head>
+
+<body>
+    <!-- Your Data Grid container -->
+    <div id="myGrid" class="ag-theme-quartz" style="height: 500px"></div>
+
+    <script>
+        const infoApisUrl = "https://raw.githubusercontent.com/andreferreiratrindade/GDC/refs/heads/main/info-apis.json";
+        init();
+
+        async function getApisData() {
+            try {
+                const response = await fetch(infoApisUrl);
+                if (!response.ok) throw new Error(`Error fetching array: ${response.statusText}`);
+
+                const dataArray = await response.json();
+
+                // Fetch details for each item in the array
+                const detailPromises = dataArray.infoApis.map(apiUrl => getDetailApi(apiUrl));
+                const details = await Promise.all(detailPromises);
+
+                return { infoApis: dataArray, apis: details }
+            } catch (error) {
+                console.error("Error in fetchArray:", error);
+            }
+        }
+
+        async function getDetailApi(apiInfoUrl) {
+            try {
+                const response = await fetch(apiInfoUrl);
+                if (!response.ok) throw new Error(`Error fetching detail for ${apiInfoUrl}`);
+
+                return await response.json();  // Assuming response is JSON
+            } catch (error) {
+                console.error(`Error in fetchDetail for ${apiInfoUrl}:`, error);
+                return null;
+            }
+
+        }
+
+        function getApiInfoConsolidate(infoApis) {
+
+            infoApis.apis.forEach(api => {
+                api.versions.forEach(version => {
+                    version.status = version.status.sort(
+                        function (a, b) {
+                            return new Date(b.startDate) - new Date(a.startDate);
+                        });
+                    version.status.forEach(status => status.enumStatusApiName = infoApis.infoApis.enumStatusApi.filter(x => x.id == status.enumStatusApi)[0].value)
+                    version.currentStatus = version.status[0];
+                });
+            });
+
+            return infoApis;
+        }
+
+        function getStatusApi(api, statusApi) {
+
+        }
+        function getVersionByEnumStatusApiString(enumStatusApi) {
+            return `data.versions.filter(x=> x.currentStatus.enumStatusApi == ${enumStatusApi})[0]??{}`;
+
+        }
+
+        function getStatusApiParameter(enumStatusApi) {
+            return {
+                headerName: enumStatusApi.value,
+                valueGetter: `${getVersionByEnumStatusApiString(enumStatusApi.id)}.versao`
+
+            }
+        }
+
+        function getColumnDefs(apiData) {
+            let enumStatusApiColumn = apiData.infoApis.enumStatusApi.map(getStatusApiParameter)
+
+            let columnDefs = [];
+            columnDefs.push({ field: "info.apiName", headerName: "Nome" })
+              columnDefs.push(...enumStatusApiColumn);
+            return columnDefs;
+        }
+
+        async function init() {
+            let apiData = await getApisData();
+
+            const apiDataConsolidated = getApiInfoConsolidate(apiData);
+            console.log(apiDataConsolidated.apis)
+            let columnDefs = getColumnDefs(apiDataConsolidated);
+
+            const gridOptions = {
+
+                rowData: apiDataConsolidated.apis,
+
+                columnDefs: columnDefs
+            };
+
+            const myGridElement = document.querySelector('#myGrid');
+            agGrid.createGrid(myGridElement, gridOptions);
+        }
+    </script>
+</body>
+
+</html>
