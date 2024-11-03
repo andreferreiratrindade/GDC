@@ -63,17 +63,22 @@
 
         }
         function getVersionByEnumStatusApiString(enumStatusApi) {
-            return `data.versions.filter(x=> x.currentStatus.enumStatusApi == ${enumStatusApi})[0]??{}`;
+            return `var version = (data.versions.filter(x=> x.currentStatus.enumStatusApi == ${enumStatusApi})[0]??{}); return version`;
 
         }
 
         function getStatusApiParameter(enumStatusApi) {
             return {
                 headerName: enumStatusApi.value,
-                valueGetter: `${getVersionByEnumStatusApiString(enumStatusApi.id)}.versao`
+                valueGetter: `${getVersionByEnumStatusApiString(enumStatusApi.id)}.versao`,
 
             }
         }
+
+        function versionLinkRenderer(params) {
+    const link = `<a href="${params.value}" target="_blank">${new URL(params.value).hostname}</a>`;
+    return link;
+}
 
         function getColumnDefs(apiData) {
             let enumStatusApiColumn = apiData.infoApis.enumStatusApi.map(getStatusApiParameter)
@@ -101,6 +106,7 @@
             const myGridElement = document.querySelector('#myGrid');
             agGrid.createGrid(myGridElement, gridOptions);
         }
+
     </script>
 </body>
 
