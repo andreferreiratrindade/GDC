@@ -1,8 +1,24 @@
 <html lang="en">
 
 <head>
-    <!-- Includes all JS & CSS for the JavaScript Data Grid -->
-    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
 </head>
 
 <body>
@@ -43,68 +59,56 @@
 
         }
 
-        function getApiInfoConsolidate(infoApis) {
 
+
+
+
+        function getApiInfoConsolidate(infoApis) {
+            let apisTable = '';
             infoApis.apis.forEach(api => {
+                let apiName = api.info.apiName;
                 api.versions.forEach(version => {
+
                     version.status = version.status.sort(
                         function (a, b) {
-                            return new Date(b.startDate) - new Date(a.startDate);
+                            return new Date(b.enumStatusApi) - new Date(a.enumStatusApi);
                         });
-                    version.status.forEach(status => status.enumStatusApiName = infoApis.infoApis.enumStatusApi.filter(x => x.id == status.enumStatusApi)[0].value)
+                    version.status.forEach(status =>
+                    {
+                        status.enumStatusApiName = infoApis.infoApis.enumStatusApi.filter(x => x.id == status.enumStatusApi)[0].value;
+
+                        apisTable += `<tr><td>${api.info.apiName}</td><td>${version.versao}</td><td>${status.enumStatusApiName}</td><td>${status.startDate}</td><td>${status.endDate}</td></tr>`
+                    })
+
                     version.currentStatus = version.status[0];
                 });
             });
 
-            return infoApis;
+            return apisTable;
         }
 
-        function getStatusApi(api, statusApi) {
-
-        }
-        function getVersionByEnumStatusApiString(enumStatusApi) {
-            return `var version = (data.versions.filter(x=> x.currentStatus.enumStatusApi == ${enumStatusApi})[0]??{}); return version`;
-
-        }
-
-        function getStatusApiParameter(enumStatusApi) {
-            return {
-                headerName: enumStatusApi.value,
-                valueGetter: `${getVersionByEnumStatusApiString(enumStatusApi.id)}.versao`,
-
-            }
-        }
-
-        function versionLinkRenderer(params) {
-    const link = `<a href="${params.value}" target="_blank">${new URL(params.value).hostname}</a>`;
-    return link;
-}
-
-        function getColumnDefs(apiData) {
-            let enumStatusApiColumn = apiData.infoApis.enumStatusApi.map(getStatusApiParameter)
-
-            let columnDefs = [];
-            columnDefs.push({ field: "info.apiName", headerName: "Nome" })
-              columnDefs.push(...enumStatusApiColumn);
-            return columnDefs;
+        function getTableHml(apiTrTable){
+           return `<table>
+  <tr>
+    <th>Api</th>
+    <th>Versão</th>
+    <th>Situação</th>
+    <th>Inicio</th>
+    <th>Fim</th>
+  </tr>
+${apiTrTable}
+</table>`
         }
 
         async function init() {
             let apiData = await getApisData();
 
-            const apiDataConsolidated = getApiInfoConsolidate(apiData);
-            console.log(apiDataConsolidated.apis)
-            let columnDefs = getColumnDefs(apiDataConsolidated);
+            const apisTrTable = getApiInfoConsolidate(apiData);
 
-            const gridOptions = {
-
-                rowData: apiDataConsolidated.apis,
-
-                columnDefs: columnDefs
-            };
+            const tableHtml = getTableHml(apisTrTable);
 
             const myGridElement = document.querySelector('#myGrid');
-            agGrid.createGrid(myGridElement, gridOptions);
+            myGridElement.innerHTML = tableHtml;
         }
 
     </script>
