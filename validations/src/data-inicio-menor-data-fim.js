@@ -1,7 +1,5 @@
 
-const github = require('@actions/github');
-const core = require('@actions/core');
-const fs = require('node:fs');
+const fs = require('fs');
 try{
     await  run();
 }catch(e){
