@@ -10,6 +10,6 @@ try{
 
 
 function run() {
-    console.log(github.context.repository);
+    console.log(github.context.payload.repository);
 
 }
