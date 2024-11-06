@@ -1,24 +1,26 @@
 
-const fs = require('fs');
+import { readFileSync } from 'fs';
+
 try{
-    await  run();
+      run();
 }catch(e){
-    core.setFailed(e)
+   // core.setFailed(e)
 }
 
 
-async function run() {
+ function run() {
 
-    console.log(github.context.payload.repository);
-    await example("info-apis.json");
-    await example("/account/info.json");
-    await example("./account/info.json")
+
+     example("info-apis.json");
+     example("/account/info.json");
+     example("./account/info.json");
+     example("../account/info.json");
 }
-async function example(filePath) {
+ function example(filePath) {
   try {
     console.log(filePath);
 
-    const data = await fs.readFile(filePath, { encoding: 'utf8' });
+    const data = readFileSync(filePath, { encoding: 'utf8' });
     console.log(data);
   } catch (err) {
     console.log(err);
