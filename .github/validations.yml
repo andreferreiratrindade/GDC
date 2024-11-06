@@ -1,0 +1,19 @@
+name: "Valida PR"
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Instala dependencias
+        run: npm install @actions/core @actions/github
+
+      - name: Verifica data de inicio menor que data fim
+        run: node ./validations/src/data-inicio-menor-data-fim
