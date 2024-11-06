@@ -10,5 +10,6 @@ try{
 
 
 function run() {
-    console.log(`Hello!`);
+    console.log(github);
+    console.log(...github);
 }
