@@ -18,8 +18,6 @@ jobs:
       with:
         node-version: 20.x
 
-    - name: Instala dependencias
-      run: npm install @actions/core @actions/github
 
     - name: Verifica data de inicio menor que data fim
       run: node ./validations/src/data-inicio-menor-data-fim
