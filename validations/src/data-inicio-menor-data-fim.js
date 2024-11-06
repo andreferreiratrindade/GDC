@@ -1,14 +1,28 @@
 
-const github = require('@actions/github');
-const core = require('@actions/core');
+import { readFileSync } from 'fs';
 
 try{
-    run();
+      run();
 }catch(e){
-    core.setFailed(e)
+   // core.setFailed(e)
 }
 
 
-function run() {
-    console.log(`Hello!`);
+ function run() {
+
+
+     example("info-apis.json");
+     example("/account/info.json");
+     example("./account/info.json");
+     example("../account/info.json");
+}
+ function example(filePath) {
+  try {
+    console.log(filePath);
+
+    const data = readFileSync(filePath, { encoding: 'utf8' });
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
 }
